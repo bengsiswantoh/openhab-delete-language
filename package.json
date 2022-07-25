@@ -4,7 +4,9 @@
   "description": "",
   "main": "openhab-delete-language.js",
   "scripts": {
-    "start": "node index.js"
+    "deleteLanguages": "node deleteLanguages.js",
+    "copyLanguages": "node copyLanguages.js",
+    "deleteAssets": "node deleteAssets.js"
   },
   "keywords": [],
   "author": "",
