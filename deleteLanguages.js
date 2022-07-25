@@ -8,8 +8,13 @@ const deleteLanguages = () => {
 
   const files = [];
   fs.readdirSync(path).forEach((directory) => {
-    if (directory.includes("values") && !keeps.includes(directory)) {
-      const valuePath = `${path}/${directory}`;
+    const valuePath = `${path}/${directory}`;
+    const condition =
+      directory.includes("values") &&
+      !keeps.includes(directory) &&
+      fs.lstatSync(valuePath).isDirectory();
+
+    if (condition) {
       fs.readdirSync(valuePath).forEach((file) => {
         if (file === "strings.xml") {
           files.push(`${valuePath}/${file}`);

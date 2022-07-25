@@ -3,51 +3,33 @@ const fs = require("fs");
 require("dotenv").config();
 
 const srcPath = __dirname + "/../" + process.env.SRC_PATH;
-const mainPath = srcPath + process.env.MAIN_PATH;
 const destinationPath = srcPath + process.env.DESTINATION_PATH;
+const stringSource = process.env.STRING_SOURCE;
+const stringDestination = process.env.STRING_DESTINATION;
 
-const keeps = ["values", "values-in"];
+const keepAssets = ["en-US", "id-ID"];
 
-const deleteFiles = () => {
-  const files = [];
-  fs.readdirSync(mainPath).forEach((file1) => {
-    if (file1.includes("values") && !keeps.includes(file1)) {
-      const valuePath = `${mainPath}/${file1}`;
-      fs.readdirSync(valuePath).forEach((file2) => {
-        if (file2 === "strings.xml") {
-          files.push(`${valuePath}/${file2}`);
-        }
-      });
-    }
-  });
-
-  for (const file of files) {
-    try {
-      fs.unlinkSync(file);
-      console.log(`successfully deleted ${file}`);
-    } catch (err) {
-      // handle the error
-      console.error(err);
-    }
-  }
-};
-
-const copyFiles = () => {
+const replaceString = () => {
   for (const file of keeps) {
-    const source = `${mainPath}/${file}/strings.xml`;
-    const destination = `${destinationPath}/${file}/strings.xml`;
-    if (fs.existsSync(source)) {
-      fs.copyFile(source, destination, (err) => {
-        if (err) throw err;
-        console.log(`${source} was copied to ${destination}`);
+    const fileName = `${destinationPath}/${file}/strings.xml`;
+    fs.readFile(fileName, "utf8", function (err, data) {
+      if (err) {
+        return console.log(err);
+      }
+      var result = data.replace(/stringSource/g, stringDestination);
+
+      fs.writeFile(someFile, result, "utf8", function (err) {
+        if (err) return console.log(err);
+        console.log(
+          `replace ${stringSource} to ${stringDestination} in ${fileName}`
+        );
       });
-    }
+    });
   }
 };
 
 const main = () => {
-  deleteFiles();
-  copyFiles();
+  // replaceString();
 };
 
 main();
