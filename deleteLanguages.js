@@ -4,9 +4,7 @@ const { keeps, mainPath } = require("./config/languages");
 
 const deleteLanguages = () => {
   const path = `${__dirname}/../${mainPath}`;
-  console.log(path);
 
-  const files = [];
   fs.readdirSync(path).forEach((directory) => {
     const valuePath = `${path}/${directory}`;
     const condition =
@@ -17,20 +15,21 @@ const deleteLanguages = () => {
     if (condition) {
       fs.readdirSync(valuePath).forEach((file) => {
         if (file === "strings.xml") {
-          files.push(`${valuePath}/${file}`);
+          try {
+            fs.unlinkSync(`${valuePath}/${file}`);
+            console.log(`delete file ${valuePath}/${file}`);
+          } catch (err) {
+            console.error(err);
+          }
         }
       });
+
+      if (fs.readdirSync(valuePath).length === 0) {
+        fs.rmdirSync(valuePath);
+        console.log(`delete directory ${valuePath}`);
+      }
     }
   });
-
-  for (const file of files) {
-    try {
-      fs.unlinkSync(file);
-      console.log(`successfully deleted ${file}`);
-    } catch (err) {
-      console.error(err);
-    }
-  }
 };
 
 deleteLanguages();

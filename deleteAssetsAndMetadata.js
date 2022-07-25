@@ -10,7 +10,6 @@ const {
 const deleteFiles = (path) => {
   path = `${__dirname}/../${path}`;
 
-  const files = [];
   fs.readdirSync(path).forEach((directory) => {
     if (!keeps.includes(directory)) {
       const valuePath = `${path}/${directory}`;
@@ -20,21 +19,22 @@ const deleteFiles = (path) => {
       if (condition) {
         fs.readdirSync(valuePath).forEach((file) => {
           if (fileToDelete.includes(file)) {
-            files.push(`${valuePath}/${file}`);
+            try {
+              fs.unlinkSync(`${valuePath}/${file}`);
+              console.log(`delete file ${valuePath}/${file}`);
+            } catch (err) {
+              console.error(err);
+            }
           }
         });
+
+        if (fs.readdirSync(valuePath).length === 0) {
+          fs.rmdirSync(valuePath);
+          console.log(`delete directory ${valuePath}`);
+        }
       }
     }
   });
-
-  for (const file of files) {
-    try {
-      fs.unlinkSync(file);
-      console.log(`successfully deleted ${file}`);
-    } catch (err) {
-      console.error(err);
-    }
-  }
 };
 
 const main = () => {
