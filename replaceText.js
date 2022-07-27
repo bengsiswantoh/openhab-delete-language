@@ -28,14 +28,16 @@ const replaceText = (words) => {
 
 const words = [
   { source: /openHAB/g, destination: "Philoin" },
-  { source: " open source", destination: "" },
-  { source: /rumah/g, destination: "gedung" },
-  { source: /for your home/g, destination: "for your building" },
-  { source: /Control your home/g, destination: "Control your building" },
   {
     source: /2012 - %s Philoin community/g,
     destination: "2022 Padinet Smartsystem Solution",
   },
+
+  { source: /rumah Anda/g, destination: "gedung Anda" },
+  { source: /for your home/g, destination: "for your building" },
+  { source: /Control your home/g, destination: "Control your building" },
+
+  { source: " open source", destination: "" },
 ];
 
 replaceText(words);
