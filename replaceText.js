@@ -32,6 +32,10 @@ const words = [
   { source: /rumah/g, destination: "gedung" },
   { source: /for your home/g, destination: "for your building" },
   { source: /Control your home/g, destination: "Control your building" },
+  {
+    source: /2012 - %s Philoin community/g,
+    destination: "2022 Padinet Smartsystem Solution",
+  },
 ];
 
 replaceText(words);
