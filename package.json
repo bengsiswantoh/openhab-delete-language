@@ -6,7 +6,7 @@
   "scripts": {
     "deleteLanguages": "node deleteLanguages.js",
     "copyLanguages": "node copyLanguages.js",
-    "deleteAssets": "node deleteAssetsAndMetadata.js"
+    "replaceText": "node replaceText.js"
   },
   "keywords": [],
   "author": "",
